@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>自作ゲーム・プロジェクト紹介サイト — Template</title>
+  <meta name="description" content="安井光のポートフォリオ">
+  <style>
+    /* ---------- ベーシックリセット ---------- */
+    :root{--accent:#ff0000;--bg:#0f0f12;--card:#111217;--muted:#bfc3d6}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+      background: url("images/X_icon_jpeg.jpg") center/cover no-repeat fixed;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ブラー用のオーバーレイ */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      backdrop-filter: blur(12px) brightness(0.9);
+      -webkit-backdrop-filter: blur(12px) brightness(0.9);
+      background: rgba(255,255,255,0.8); /* ← これで暗めに */
+      z-index: -1;
+    }
+
+    p {
+      color: #000 !important;
+    }
+
+    /* ---------- レイアウト ---------- */
+    header{padding:18px 20px; display:flex; align-items:center; justify-content:space-between; backdrop-filter:saturate(120%) blur(6px)}
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: url("images/xsign.png") center/contain no-repeat;
+      display: flex;             /* 中央配置用 */
+      align-items: center;
+      justify-content: center;
+    }
+
+    nav ul{display:flex; gap:12px; list-style:none; margin:0; padding:0}
+    nav button{background:transparent;border:1px solid transparent;color:inherit;padding:8px 12px;border-radius:8px}
+    nav button:hover{background:rgba(255,255,255,0.03)}
+
+    main{max-width:1100px;margin:28px auto;padding:18px}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:center}
+    .hero h1{font-size:2rem;margin:0}
+    .hero p{color:var(--muted);margin-top:8px}
+    .cta{margin-top:12px}
+    .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;border:none;cursor:pointer}
+
+    /* ---------- プロジェクトカード ---------- */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;margin-top:26px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.01));border-radius:12px;padding:12px;border:0px solid rgba(255,255,255,0.01);cursor:pointer}
+    .card h3{margin:6px 0 0 0}
+    .card p{color:var(--muted);font-size:0.92rem}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .tag{background:rgba(255,255,255,0.6);padding:6px 8px;border-radius:8px;font-size:0.82rem}
+
+    /* ---------- モーダル ---------- */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,0.6);visibility:hidden;opacity:0;transition:opacity .18s, visibility .18s}
+    .modal.open{visibility:visible;opacity:1}
+    .modal .box{max-width:900px;width:100%;background:#ffffff;border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03);color: #000;}
+    .modal .box header{display:flex;justify-content:space-between;align-items:center}
+
+    /* ---------- ギャラリー &埋め込み ---------- */
+    .media{margin-top:12px}
+    .screenshot{height:180px;object-fit:cover;width:100%;border-radius:8px}
+
+    /* ---------- フッター ---------- */
+    footer{max-width:1100px;margin:40px auto 80px;padding:18px;color:var(--muted);text-align:center}
+
+    /* ---------- レスポンシブ ---------- */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr}
+      header{padding:12px}
+      .logo{width:40px;height:40px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <div style="font-weight:700">My Projects</div>
+        <div style="font-size:0.78rem;color: #000 !important;">制作した作品のまとめ</div>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><button onclick="scrollToSection('projects')">Projects</button></li>
+        <li><button onclick="scrollToSection('about')">About</button></li>
+        <li><button onclick="scrollToSection('contact')">Contact</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Yasui Hikaru</h1>
+        <p>制作した作品をまとめたページです。作品ごとに説明・画像・外部リンクがあります。</p>
+        <div class="cta"><button class="btn" onclick="scrollToSection('projects')">作品を見る</button></div>
+
+        <section id="about" style="margin-top:100px;background:rgba(255,255,255,0.01);padding:12px;border-radius:10px">
+          <h2>About（自己紹介）</h2>
+          <p style="color:var(--muted)">私は、音を視覚化する表現と、実体験をもとにした物語表現の2つを軸に制作しています。
+            <br>
+            <br>コピーバンドのX-model や After Effects を使ったアニメーション作品では、音の質感やリズムを形や光として捉え直し、抽象的な動きの中に感情を込めることを目指しています。
+            <br>
+            <br>一方で、自分の中学受験の記憶や、夢の体験を題材にしたゲームやコマ撮り作品では、言葉にしにくい心の揺らぎや、静かな葛藤を物語に落とし込むことに挑戦しています。
+            <br>
+            <br>現実と空想の境界にあるような「曖昧さ」を大切にしながら、見る人にそっと感情が届くような作品づくりを心がけています。</p>
+        </section>
+      </div>
+
+      <aside style="margin-top:150px;background:rgba(255,255,255,0.3);padding:12px;border-radius:10px">
+        <h4 style="margin:0">Quick Info</h4>
+        <p style="color:var(--muted);margin:8px 0 0 0">制作中のプロジェクトや進行状況</p>
+        <ul style="color: #000 !important;margin-top:8px">
+          <li>Shapes vol.1「○」 — 終了</li>
+          <li>次回ライブ企画 — 構想段階</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="projects">
+      <h2 style="margin-top:250px">Projects</h2>
+      <h3 style="margin-top:48px">X-model</h3>
+      <p style="color:var(--muted)">平沢進さんの曲をベースにした、「音を光で表現する」をテーマとする実験的コピープロジェクト</p>
+      <p style="text-align: center;margin-top:12px">
+        <img src="images/X-model_icon_jpeg.jpg" style="max-width: 70%; height: auto; border: 0;" alt="画像ファイル">
+      </P>
+      <div class="grid" id="projectGrid">
+        <!-- カードをここに増やしていきます（初心者はコピー＆編集するだけでOK） -->
+
+        <article class="card" data-title="LIVE 2-1" data-desc="高校生の時に企画したストーリー並行型のライブ１回目。文化祭での発表が雨天のため延期となり、映像作品として講堂で収録した。" data-media="images/2-1pic.png"data-link="https://youtu.be/g0Y6RpSQgMI">
+          <img src="images/X-model thum.jpg" alt="project thumbnail" class="screenshot">
+          <h3>LIVE 2-1</h3>
+          <p>高校１回目のライブ</p>
+          <div class="tags"><span class="tag">X-model</span></div>
+        </article>
+
+        <article class="card" data-title="LIVE 2-2" data-desc="高校生の時に企画したストーリー並行型のライブ１回目。ライブを見た人の投票によってストーリーの方向性が変わるインタラクティブ性も取り入れた。" data-media="images/2-2pic.jpg"data-link="https://youtu.be/wDhELF67Il8">
+          <img src="images/X-model 2-2thumb.jpg" alt="project thumbnail" class="screenshot">
+          <h3>LIVE 2-2</h3>
+          <p>高校２回目のライブ</p>
+          <div class="tags"><span class="tag">X-model</span></div>
+        </article>
+
+        <article class="card" data-title="Shapes vol.1「○」" data-desc="大学に入って初めて行なったライブ。YouTubeでの生配信を行った。" data-media="images/Shapesvol1photo.jpeg" data-link="https://www.youtube.com/live/otA5DGisPTk?si=0nDSexEw0Y1hRrHT">
+          <img src="images/Shapes_snsicon.jpg" alt="project thumbnail" class="screenshot">
+          <h3>Shapes vol.1「○」</h3>
+          <p>大学一年生でのライブ</p>
+          <div class="tags"><span class="tag">X-model</span></div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="projects">
+      <h3 style="margin-top:48px">その他の作品</h3>
+      <p style="color:var(--muted)">映像、アニメーション、ゲーム、グラフィック、インスタレーション、インタラクティブアートなど</p>
+      <div class="grid" id="projectGrid">
+        <!-- カードをここに増やしていきます（初心者はコピー＆編集するだけでOK） -->
+
+        <article class="card" data-title="解なし" data-desc="中学受験の経験をモチーフにしたループものの脱出ゲーム。2D画像で疑似的に3D空間を表現している。" data-media="images/kainashiframe.png" data-link="https://openprocessing.org/sketch/2676987">
+          <img src="images/kainashi.png" alt="project thumbnail" class="screenshot">
+          <h3>解なし</h3>
+          <p>p5.js / JavaScript</p>
+          <div class="tags"><span class="tag">制作企画</span><span class="tag">p5.js</span><span class="tag">ゲームシナリオ</span></div>
+        </article>
+
+        <article class="card" data-title="解なしミニゲーム" data-desc="解なしクリア後にプレイできる横スクロールゲーム。地形はランダム生成。" data-media="images/miniframe.png" data-link="https://openprocessing.org/sketch/2689170">
+          <img src="images/mini.png" alt="project thumbnail" class="screenshot">
+          <h3>解なしミニゲーム</h3>
+          <p>p5.js / JavaScript</p>
+          <div class="tags"><span class="tag">p5.js</span><span class="tag">ゲーム</span><span class="tag">横スクロール</span></div>
+        </article>
+
+        <article class="card" data-title="嚥下" data-desc="夢の中の世界がテーマの2分のコマ撮りショートフィルム。実際に見た夢を考察したうえで複数組み合わせてプロットを制作した。" data-media="images/enge.jpg" data-link="https://youtu.be/RAFIy1WFo4w">
+          <img src="images/engeframe.png" alt="project thumbnail" class="screenshot">
+          <h3>嚥下</h3>
+          <p>映像 / 編集</p>
+          <div class="tags"><span class="tag">映像</span><span class="tag">アニメーション</span></div>
+        </article>
+
+        <article class="card" data-title="コマ撮り映像" data-desc="2分のコマ撮りショートフィルム。夢と現実のテーマ。" data-media="https://via.placeholder.com/800x450.png?text=Stop+Motion">
+          <img src="https://via.placeholder.com/800x450.png?text=Stop+Motion+Thumb" alt="project thumbnail" class="screenshot">
+          <h3>コマ撮り映像</h3>
+          <p>映像 / 編集</p>
+          <div class="tags"><span class="tag">映像</span><span class="tag">アニメーション</span></div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- モーダル（作品詳細） -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <div class="box">
+      <header>
+        <h3 id="modalTitle">Title</h3>
+        <button onclick="closeModal()" aria-label="Close">✕</button>
+      </header>
+      <div id="modalBody">
+        <p id="modalDesc" style="color:var(--muted)"></p>
+        <div class="media" id="modalMedia"></div>
+        <div style="margin-top:12px"><a id="sourceLink" href="#" target="_blank" style="color:var(--accent);display:inline-block;margin-top:8px">外部で見る（リンクが開きます）</a></div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="contact">
+    <div style="max-width:1100px;margin:0 auto;padding:18px">
+      <p>Contact</p>
+      <p style="color:var(--muted)">X25027</p>
+      <p style="margin-top:12px">© <span id="year"></span> Yasui Hikaru</p>
+    </div>
+  </footer>
+
+  <script>
+    // 年を自動挿入
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // カードをクリックしたらモーダルを表示
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        const title = card.dataset.title;
+        const desc = card.dataset.desc;
+        const media = card.dataset.media;
+        const link = card.dataset.link; // ★★★ 追加: data-link 属性の値を取得 ★★★
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalDesc').textContent = desc;
+        const mediaContainer = document.getElementById('modalMedia');
+        mediaContainer.innerHTML = '';
+        if (media) {
+          // メディアが画像URLなら画像を差し込む。埋め込みが必要ならここを編集。
+          const img = document.createElement('img');
+          img.src = media;
+          img.alt = title + ' screenshot';
+          img.style.borderRadius = '8px';
+          img.style.width = '100%';
+          mediaContainer.appendChild(img);
+        }
+
+        // ★★★ 変更後: 取得した link の値を aタグの href に設定 ★★★
+        document.getElementById('sourceLink').href = link || '#';
+
+        openModal();
+      })
+    })
+
+    function openModal(){
+      const m = document.getElementById('modal');
+      m.classList.add('open');
+      m.setAttribute('aria-hidden','false');
+    }
+    function closeModal(){
+      const m = document.getElementById('modal');
+      m.classList.remove('open');
+      m.setAttribute('aria-hidden','true');
+    }
+
+    // エスケープで閉じる
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+    // ナビのスクロール
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    /* ---------- カスタマイズのヒント（ここはコードの中に残しておくと授業提出でわかりやすい） ----------
+       - プロジェクトカードを増やすには、<article class="card" ...> をコピーして内容を書き換えるだけ。
+       - data-media 属性に動画URLや埋め込みページ（itch.io / YouTube）を入れると、ここを拡張してiframeを表示できます。
+       - 画像は project/images/ のようにフォルダを作って管理すると整理しやすいです。
+       - CSSは <style> 内を編集するか、styles.css に分けて読み込むと見やすくなります。
+       - 授業で動作確認する際は、ローカルで index.html と images フォルダを同じディレクトリに置いてブラウザで開いてください。
+    */
+  </script>
+</body>
+</html>
