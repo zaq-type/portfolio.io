@@ -25,7 +25,7 @@
       inset: 0;
       backdrop-filter: blur(12px) brightness(0.9);
       -webkit-backdrop-filter: blur(12px) brightness(0.9);
-      background: rgba(255,255,255,0.8); /* ← これで暗めに */
+      background: rgba(255,255,255,0.8);
       z-index: -1;
     }
 
@@ -41,7 +41,7 @@
       height: 44px;
       border-radius: 8px;
       background: url("images/xsign.png") center/contain no-repeat;
-      display: flex;             /* 中央配置用 */
+      display: flex; 
       align-items: center;
       justify-content: center;
     }
@@ -171,7 +171,6 @@
       <h3 style="margin-top:48px">その他の作品</h3>
       <p style="color:var(--muted)">映像、アニメーション、ゲーム、グラフィック、インスタレーション、インタラクティブアートなど</p>
       <div class="grid" id="projectGrid">
-        <!-- カードをここに増やしていきます（初心者はコピー＆編集するだけでOK） -->
 
         <article class="card" data-title="解なし" data-desc="中学受験の経験をモチーフにしたループものの脱出ゲーム。2D画像で疑似的に3D空間を表現している。" data-media="images/kainashiframe.png" data-link="https://openprocessing.org/sketch/2676987">
           <img src="images/kainashi.png" alt="project thumbnail" class="screenshot">
@@ -232,13 +231,13 @@
         const title = card.dataset.title;
         const desc = card.dataset.desc;
         const media = card.dataset.media;
-        const link = card.dataset.link; // ★★★ 追加: data-link 属性の値を取得 ★★★
+        const link = card.dataset.link;
         document.getElementById('modalTitle').textContent = title;
         document.getElementById('modalDesc').textContent = desc;
         const mediaContainer = document.getElementById('modalMedia');
         mediaContainer.innerHTML = '';
         if (media) {
-          // メディアが画像URLなら画像を差し込む。埋め込みが必要ならここを編集。
+          // メディアが画像URLなら画像を差し込む
           const img = document.createElement('img');
           img.src = media;
           img.alt = title + ' screenshot';
@@ -247,7 +246,6 @@
           mediaContainer.appendChild(img);
         }
 
-        // ★★★ 変更後: 取得した link の値を aタグの href に設定 ★★★
         document.getElementById('sourceLink').href = link || '#';
 
         openModal();
@@ -273,14 +271,6 @@
       const el = document.getElementById(id);
       if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
     }
-
-    /* ---------- カスタマイズのヒント（ここはコードの中に残しておくと授業提出でわかりやすい） ----------
-       - プロジェクトカードを増やすには、<article class="card" ...> をコピーして内容を書き換えるだけ。
-       - data-media 属性に動画URLや埋め込みページ（itch.io / YouTube）を入れると、ここを拡張してiframeを表示できます。
-       - 画像は project/images/ のようにフォルダを作って管理すると整理しやすいです。
-       - CSSは <style> 内を編集するか、styles.css に分けて読み込むと見やすくなります。
-       - 授業で動作確認する際は、ローカルで index.html と images フォルダを同じディレクトリに置いてブラウザで開いてください。
-    */
   </script>
 </body>
 </html>
